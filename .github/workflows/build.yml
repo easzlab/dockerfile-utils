@@ -1,0 +1,55 @@
+name: build
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+#          - dockerfile: ./pause/Dockerfile
+#            image: easzlab/pause
+#            tag: 3.9
+#            ctx: ./pause/
+          - dockerfile: ./ng-forward-proxy/Dockerfile
+            image: easzlab/ng-forward-proxy
+            tag: v1.1.0
+            ctx: ./ng-forward-proxy/
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ matrix.image }} 
+          tags: ${{ matrix.tag }} 
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ matrix.ctx }}
+          file: ${{ matrix.dockerfile }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
+          push: true
