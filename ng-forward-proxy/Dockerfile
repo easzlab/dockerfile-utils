@@ -1,7 +1,7 @@
 FROM centos:7
 
 ENV NGINX_VERSION=1.22.1 \
-    NG_FORWARD_PROXY_VER=v1.1.0
+    NG_FORWARD_PROXY_VER=1.22.1-20230227
 
 RUN yum install -y \
       gcc \

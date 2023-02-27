@@ -16,7 +16,7 @@ jobs:
 #            ctx: ./pause/
           - dockerfile: ./ng-forward-proxy/Dockerfile
             image: easzlab/ng-forward-proxy
-            tag: v1.1.0
+            tag: 1.22.1-20230227
             ctx: ./ng-forward-proxy/
     permissions:
       contents: read
