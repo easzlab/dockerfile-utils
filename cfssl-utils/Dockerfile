@@ -20,4 +20,4 @@ RUN set -x \
 FROM alpine:3.16
 ENV CFSSL_VER=v1.6.3
 
-COPY --from=downloader_120 /ext-bin/* /bin
+COPY --from=builder_120 /ext-bin/* /bin
