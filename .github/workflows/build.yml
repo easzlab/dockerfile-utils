@@ -18,6 +18,10 @@ jobs:
             image: easzlab/ng-forward-proxy
             tag: 1.22.1-20230227
             ctx: ./ng-forward-proxy/
+          - dockerfile: ./cfssl-utils/Dockerfile
+            image: easzlab/cfssl-utils
+            tag: v1.6.3
+            ctx: ./cfssl-utils/
     permissions:
       contents: read
       packages: write
