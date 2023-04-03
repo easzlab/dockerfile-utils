@@ -5,7 +5,7 @@ RUN set -x \
     && git config --global advice.detachedHead false \
     && git clone --depth 1 -b ${TCPING_VER} https://github.com/pouriyajamshidi/tcping.git \
     && cd tcping \
-    && go build -ldflags '-s -w -extldflags "-static"' -o /tmp/tcping tcping.go statsprinter.go
+    && go build -tags 'netgo,osusergo' -ldflags '-s -w -extldflags "-static"' -o /tmp/tcping tcping.go statsprinter.go
 
 # fetcher image
 FROM debian:stable-slim as fetcher
