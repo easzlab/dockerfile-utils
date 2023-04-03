@@ -10,18 +10,18 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#          - dockerfile: ./pause/Dockerfile
-#            image: easzlab/pause
-#            tag: 3.9
-#            ctx: ./pause/
-          - dockerfile: ./ng-forward-proxy/Dockerfile
-            image: easzlab/ng-forward-proxy
-            tag: 1.22.1-20230227
-            ctx: ./ng-forward-proxy/
-          - dockerfile: ./cfssl-utils/Dockerfile
-            image: easzlab/cfssl-utils
-            tag: v1.6.3
-            ctx: ./cfssl-utils/
+#          - dockerfile: ./ng-forward-proxy/Dockerfile
+#            image: easzlab/ng-forward-proxy
+#            tag: 1.22.1-20230227
+#            ctx: ./ng-forward-proxy/
+#          - dockerfile: ./cfssl-utils/Dockerfile
+#            image: easzlab/cfssl-utils
+#            tag: v1.6.3
+#            ctx: ./cfssl-utils/
+          - dockerfile: ./tshooter/Dockerfile
+            image: easzlab/tshooter
+            tag: v0.1.0
+            ctx: ./tshooter/
     permissions:
       contents: read
       packages: write
@@ -49,7 +49,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ${{ matrix.ctx }}
           file: ${{ matrix.dockerfile }}
