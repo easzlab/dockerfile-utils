@@ -20,7 +20,7 @@ jobs:
 #            ctx: ./cfssl-utils/
           - dockerfile: ./tshooter/Dockerfile
             image: easzlab/tshooter
-            tag: v0.1.0
+            tag: v1.0.0
             ctx: ./tshooter/
     permissions:
       contents: read

@@ -1,3 +1,13 @@
+# builder image
+FROM golang:1.20 as builder
+ENV TCPING_VER=v1.19.1
+RUN set -x \
+    && git config --global advice.detachedHead false \
+    && git clone --depth 1 -b ${TCPING_VER} https://github.com/pouriyajamshidi/tcping.git \
+    && cd tcping \
+    && go build -ldflags '-s -w -extldflags "-static"' -o /tmp/tcping tcping.go statsprinter.go
+
+# fetcher image
 FROM debian:stable-slim as fetcher
 COPY build/fetch_binaries.sh /tmp/fetch_binaries.sh
 
@@ -7,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN /tmp/fetch_binaries.sh
 
-# 
+# release image
 FROM alpine:3.17.3
 
 RUN set -ex \
@@ -17,59 +27,59 @@ RUN set -ex \
     && apk update \
     && apk upgrade \
     && apk add --no-cache \
-    apache2-utils \
-    bash \
-    bind-tools \
-    bird \
-    bridge-utils \
-    busybox-extras \
-    conntrack-tools \
-    curl \
-    dhcping \
-    drill \
-    ethtool \
-    file\
-    fping \
-    iftop \
-    iperf \
-    iperf3 \
-    iproute2 \
-    ipset \
-    iptables \
-    iptraf-ng \
-    iputils \
-    ipvsadm \
-    httpie \
-    jq \
-    libc6-compat \
-    liboping \
-    ltrace \
-    mtr \
-    net-snmp-tools \
-    netcat-openbsd \
-    nftables \
-    ngrep \
-    nmap \
-    nmap-nping \
-    nmap-scripts \
-    openssl \
-    py3-pip \
-    py3-setuptools \
-    scapy \
-    socat \
-    speedtest-cli \
-    openssh \
-    strace \
-    tcpdump \
-    tcptraceroute \
-    tshark \
-    util-linux \
-    vim \
-    git \
-    websocat \
-    swaks \
-    perl-crypt-ssleay \
-    perl-net-ssleay
+            apache2-utils \
+            bash \
+            busybox-extras \
+            conntrack-tools \
+            curl \
+            dhcping \
+            drill \
+            ethtool \
+            file\
+            fping \
+            iftop \
+            iperf \
+            iperf3 \
+            iproute2 \
+            ipset \
+            iptables \
+            iptraf-ng \
+            iputils \
+            ipvsadm \
+            jq \
+            libc6-compat \
+            liboping \
+            ltrace \
+            mtr \
+            net-snmp-tools \
+            netcat-openbsd \
+            nftables \
+            ngrep \
+            nmap \
+            nmap-nping \
+            nmap-scripts \
+            openssl \
+            py3-pip \
+            py3-setuptools \
+            scapy \
+            socat \
+            speedtest-cli \
+            openssh \
+            strace \
+            tcpdump \
+            tcptraceroute \
+            tshark \
+            util-linux \
+            vim \
+            git \
+            websocat \
+            swaks \
+            perl-crypt-ssleay \
+            perl-net-ssleay \
+    && rm -rf /var/cache/apk/*
+
+# Installing tcping
+COPY --from=builder /tmp/tcping /usr/local/bin/tcping
 
 # Installing ctop - top-like container monitor
 COPY --from=fetcher /tmp/ctop /usr/local/bin/ctop
