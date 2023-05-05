@@ -18,10 +18,14 @@ jobs:
 #            image: easzlab/cfssl-utils
 #            tag: v1.6.3
 #            ctx: ./cfssl-utils/
-          - dockerfile: ./tshooter/Dockerfile
-            image: easzlab/tshooter
-            tag: v1.0.1
-            ctx: ./tshooter/
+#          - dockerfile: ./tshooter/Dockerfile
+#            image: easzlab/tshooter
+#            tag: v1.0.1
+#            ctx: ./tshooter/
+          - dockerfile: ./ng-http-proxy/Dockerfile
+            image: easzlab/ng-http-proxy
+            tag: v1.1.0
+            ctx: ./ng-http-proxy/
     permissions:
       contents: read
       packages: write
