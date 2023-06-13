@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 RUN /tmp/fetch_binaries.sh
 
 # release image
-FROM alpine:3.17.3
+FROM alpine:3.18
 
 RUN set -ex \
     && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
@@ -99,4 +99,4 @@ ENV HOSTNAME tshooter
 RUN chmod -R g=u /root
 RUN chown root:root /usr/bin/dumpcap
 
-CMD [ "sleep", "360000000" ]
+CMD ["sh", "-c", "tail -f /dev/null"]
