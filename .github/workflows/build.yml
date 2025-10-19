@@ -18,10 +18,14 @@ jobs:
 #            image: easzlab/cfssl-utils
 #            tag: v1.6.3
 #            ctx: ./cfssl-utils/
-          - dockerfile: ./tshooter/Dockerfile
-            image: easzlab/tshooter
-            tag: v1.0.2
-            ctx: ./tshooter/
+#          - dockerfile: ./tshooter/Dockerfile
+#            image: easzlab/tshooter
+#            tag: v1.0.2
+#            ctx: ./tshooter/
+          - dockerfile: ./client-utils/Dockerfile
+            image: easzlab/client-utils
+            tag: v1.0.0-20251019
+            ctx: ./client-utils/
 #          - dockerfile: ./ng-http-proxy/Dockerfile
 #            image: easzlab/ng-http-proxy
 #            tag: v1.1.0
