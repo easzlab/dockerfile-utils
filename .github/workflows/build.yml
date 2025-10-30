@@ -24,7 +24,7 @@ jobs:
 #            ctx: ./tshooter/
           - dockerfile: ./client-utils/Dockerfile
             image: easzlab/client-utils
-            tag: v1.0.0-20251019
+            tag: v1.1.0
             ctx: ./client-utils/
 #          - dockerfile: ./ng-http-proxy/Dockerfile
 #            image: easzlab/ng-http-proxy

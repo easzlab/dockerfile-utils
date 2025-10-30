@@ -16,11 +16,11 @@ RUN set -eux; \
     echo 'deb-src http://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib' >> /etc/apt/sources.list; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-	ca-certificates \
+        ca-certificates \
         # db clients
-    	default-mysql-client \
-    	redis-tools \
-    	postgresql-client \
+        default-mysql-client \
+        redis-tools \
+        postgresql-client \
         clickhouse-client
 
 COPY download.sh .
@@ -28,13 +28,15 @@ ENV OSS_VER=v1.7.18
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-	netbase \
-	tzdata \
+        netbase \
+        tzdata \
         curl \
         procps \
         net-tools \
-	wget \
+        wget \
         unzip \
+        vim \
+        tcpdump \
     && apt-get autoremove -y && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && sh -x ./download.sh
