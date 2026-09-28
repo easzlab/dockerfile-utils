@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM python:3.11-bookworm
 ENV LANG C.UTF-8
 ENV TZ=Asia/Shanghai
 ENV DEBIAN_FRONTEND=noninteractive
